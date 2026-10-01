@@ -1,0 +1,30 @@
+; SKETCH ONLY - not run (no Cadence license in this project).
+; Shows how flow/run_sims.py maps onto Virtuoso / Spectre with OCEAN (SKILL-based).
+; Each result row would be written to the same CSV format the Python flow reads.
+
+simulator('spectre)
+design("OPA2S_LIB" "opamp_tb" "schematic")
+resultsDir("./results/opamp_tb")
+
+out = outfile("../data/sim_results.csv" "w")
+fprintf(out "corner,temp_c,vdd,iq_ua,dc_gain_db,ugbw_hz,phase_margin_deg\n")
+
+foreach(corner list("tt" "ff" "ss")
+  modelFile(list("models.scs" corner))
+  foreach(t list(-40 27 125)
+    foreach(v list(1.62 1.8 1.98)
+      temp(t)
+      desVar("VDD" v)
+      analysis('dc ?saveOppoint t)
+      analysis('ac ?start 1 ?stop 1G ?dec 50)
+      run()
+      iq   = -1e6 * value(IDC("/VDD/PLUS") 'dc)        ; supply current in uA
+      vout = VF("/out")
+      gain = value(dB20(vout) 10)                      ; low-frequency gain
+      ugb  = cross(dB20(vout) 0 1 'falling)            ; unity-gain frequency
+      pm   = phaseMargin(vout)
+      fprintf(out "%s,%d,%g,%g,%g,%g,%g\n" corner t v iq gain ugb pm)
+    )
+  )
+)
+close(out)
