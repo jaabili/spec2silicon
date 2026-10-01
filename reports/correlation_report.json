@@ -1,0 +1,193 @@
+{
+  "mode": "offline (rule-based)",
+  "mapping": [
+    {
+      "spec_id": "SPEC-001",
+      "source": "ATE",
+      "name": "OPA2S_AOL_LF[dB]",
+      "rationale": "Keyword match on A0, unit dB->dB, source matches verified_by=ATE"
+    },
+    {
+      "spec_id": "SPEC-002",
+      "source": "ATE",
+      "name": "OPA2S_GBW_CL5P[Hz]",
+      "rationale": "Keyword match on GBW, unit Hz->MHz, source matches verified_by=ATE"
+    },
+    {
+      "spec_id": "SPEC-003",
+      "source": "bench",
+      "name": "Phase margin (CL=5pF, scope)",
+      "rationale": "Keyword match on PM, unit deg->deg, source matches verified_by=bench"
+    },
+    {
+      "spec_id": "SPEC-004",
+      "source": "ATE",
+      "name": "OPA2S_IDDQ_VDD1P8[A]",
+      "rationale": "Keyword match on IQ, unit A->uA, source matches verified_by=ATE"
+    }
+  ],
+  "findings": [
+    {
+      "spec_id": "SPEC-002",
+      "severity": "RED",
+      "observation": "Unity-gain bandwidth: silicon mean 9.437 MHz vs sim tt 12.099 (-22.0%), Cpk 1.16, flags OUTSIDE_SIM_CORNERS, LOW_CPK, LARGE_SIM_DELTA",
+      "likely_causes": "Unmodelled parasitic capacitance at the Miller/compensation node, or Cc/Rz process spread.",
+      "suggested_action": "Re-run with post-layout (RC-extracted) netlist; check Cc/Rz values on silicon; compare ss corner."
+    },
+    {
+      "spec_id": "SPEC-003",
+      "severity": "RED",
+      "observation": "Phase margin: silicon mean 55.6 deg vs sim tt 65.011 (-14.5%), Cpk 0.15, flags SPEC_FAIL, OUTSIDE_SIM_CORNERS, LOW_CPK, LARGE_SIM_DELTA",
+      "likely_causes": "Probe/board capacitance adds to CL on the bench; non-dominant pole lower than simulated.",
+      "suggested_action": "Re-simulate with measured fixture load (CL + probe); verify on ATE-style load or with active probe."
+    },
+    {
+      "spec_id": "-",
+      "severity": "INFO",
+      "observation": "Silicon test 'CONT_OPEN_SHORT[V]' (ATE) has no spec",
+      "likely_causes": "Screening/secondary test or missing spec entry.",
+      "suggested_action": "Confirm whether a spec limit should exist."
+    },
+    {
+      "spec_id": "-",
+      "severity": "INFO",
+      "observation": "Silicon test 'OPA2S_VOS[V]' (ATE) has no spec",
+      "likely_causes": "Screening/secondary test or missing spec entry.",
+      "suggested_action": "Confirm whether a spec limit should exist."
+    },
+    {
+      "spec_id": "SPEC-004",
+      "severity": "INFO",
+      "observation": "Secondary bench measurement 'Supply current (DMM)' (n=10): mean 70.05 uA vs primary 70.331",
+      "likely_causes": "Cross-check between test platforms.",
+      "suggested_action": "Track ATE-vs-bench offset; agreement supports the ATE test setup."
+    }
+  ],
+  "summary": "2 of 4 specs flagged.",
+  "correlation": {
+    "conditions": {
+      "temp_c": 27,
+      "vdd": 1.8
+    },
+    "results": [
+      {
+        "spec_id": "SPEC-001",
+        "spec": "Open-loop DC gain",
+        "unit": "dB",
+        "limit_min": 75,
+        "limit_max": null,
+        "silicon_source": "ATE",
+        "silicon_name": "OPA2S_AOL_LF[dB]",
+        "n": 240,
+        "sim_tt": 84.429,
+        "sim_ss": 83.304,
+        "sim_ff": 85.41,
+        "si_mean": 83.497,
+        "si_std": 0.846,
+        "si_min": 81.349,
+        "si_max": 85.649,
+        "delta_vs_tt_pct": -1.1,
+        "cpk": 3.35,
+        "yield_pct": 100.0,
+        "flags": [],
+        "status": "GREEN"
+      },
+      {
+        "spec_id": "SPEC-002",
+        "spec": "Unity-gain bandwidth",
+        "unit": "MHz",
+        "limit_min": 8,
+        "limit_max": 20,
+        "silicon_source": "ATE",
+        "silicon_name": "OPA2S_GBW_CL5P[Hz]",
+        "n": 240,
+        "sim_tt": 12.099,
+        "sim_ss": 11.14,
+        "sim_ff": 13.056,
+        "si_mean": 9.437,
+        "si_std": 0.411,
+        "si_min": 8.313,
+        "si_max": 10.574,
+        "delta_vs_tt_pct": -22.0,
+        "cpk": 1.16,
+        "yield_pct": 100.0,
+        "flags": [
+          "OUTSIDE_SIM_CORNERS",
+          "LOW_CPK",
+          "LARGE_SIM_DELTA"
+        ],
+        "status": "RED"
+      },
+      {
+        "spec_id": "SPEC-003",
+        "spec": "Phase margin",
+        "unit": "deg",
+        "limit_min": 55,
+        "limit_max": null,
+        "silicon_source": "bench",
+        "silicon_name": "Phase margin (CL=5pF, scope)",
+        "n": 10,
+        "sim_tt": 65.011,
+        "sim_ss": 62.336,
+        "sim_ff": 67.376,
+        "si_mean": 55.6,
+        "si_std": 1.348,
+        "si_min": 53.22,
+        "si_max": 57.6,
+        "delta_vs_tt_pct": -14.5,
+        "cpk": 0.15,
+        "yield_pct": 70.0,
+        "flags": [
+          "SPEC_FAIL",
+          "OUTSIDE_SIM_CORNERS",
+          "LOW_CPK",
+          "LARGE_SIM_DELTA"
+        ],
+        "status": "RED"
+      },
+      {
+        "spec_id": "SPEC-004",
+        "spec": "Quiescent supply current",
+        "unit": "uA",
+        "limit_min": null,
+        "limit_max": 85,
+        "silicon_source": "ATE",
+        "silicon_name": "OPA2S_IDDQ_VDD1P8[A]",
+        "n": 240,
+        "sim_tt": 70.217,
+        "sim_ss": 69.952,
+        "sim_ff": 70.477,
+        "si_mean": 70.331,
+        "si_std": 1.161,
+        "si_min": 67.098,
+        "si_max": 73.712,
+        "delta_vs_tt_pct": 0.2,
+        "cpk": 4.21,
+        "yield_pct": 100.0,
+        "flags": [],
+        "status": "GREEN"
+      }
+    ],
+    "unmapped_silicon_tests": [
+      {
+        "source": "ATE",
+        "name": "CONT_OPEN_SHORT[V]",
+        "unit": "V",
+        "n": 240
+      },
+      {
+        "source": "ATE",
+        "name": "OPA2S_VOS[V]",
+        "unit": "V",
+        "n": 240
+      },
+      {
+        "source": "bench",
+        "name": "Supply current (DMM)",
+        "unit": "uA",
+        "n": 10
+      }
+    ],
+    "specs_without_silicon_data": []
+  }
+}
