@@ -1,0 +1,44 @@
+# Datasheet-style specification for the block under test.
+# Note: spec names intentionally do NOT match the names used in the ATE test
+# program or the bench notebook. Aligning them is part of the flow.
+block: OPA2S_01
+description: Two-stage Miller-compensated op-amp, NMOS input pair
+typical_conditions: {vdd: 1.8, temp_c: 27, load_cap_pf: 5}
+
+specs:
+  - id: SPEC-001
+    name: Open-loop DC gain
+    symbol: A0
+    unit: dB
+    min: 75
+    sim_measure: dc_gain_db
+    sim_scale: 1
+    verified_by: ATE
+
+  - id: SPEC-002
+    name: Unity-gain bandwidth
+    symbol: GBW
+    unit: MHz
+    min: 8
+    max: 20
+    sim_measure: ugbw_hz
+    sim_scale: 1.0e-6
+    verified_by: ATE
+
+  - id: SPEC-003
+    name: Phase margin
+    symbol: PM
+    unit: deg
+    min: 55
+    sim_measure: phase_margin_deg
+    sim_scale: 1
+    verified_by: bench
+
+  - id: SPEC-004
+    name: Quiescent supply current
+    symbol: IQ
+    unit: uA
+    max: 85
+    sim_measure: iq_ua
+    sim_scale: 1
+    verified_by: ATE
