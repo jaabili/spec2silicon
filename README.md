@@ -4,7 +4,7 @@
 
 It starts from a spec sheet, runs the circuit across process/voltage/temperature (PVT) corners, pulls in tester and lab data that use *different names and units* from the spec sheet, aligns everything, computes Cpk / yield / sim-vs-silicon deltas, and produces a dashboard plus findings with likely root causes.
 
-![flow](https://img.shields.io/badge/flow-spec→sim→silicon→report-1f3864)
+![Correlation dashboard](docs/dashboard.png)
 
 ## Why
 
