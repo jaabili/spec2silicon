@@ -1,0 +1,38 @@
+* Two-stage Miller op-amp, open-loop AC testbench  corner={corner} temp={temp} vdd={vdd}
+.include models_{corner}.lib
+.temp {temp}
+VDD vdd 0 {vdd}
+VCM cm 0 {vcm}
+VIN inp cm DC 0 AC 1
+Ib vdd nb 10u
+Mb nb nb 0 0 nch W=2u L=1u
+M5 tail nb 0 0 nch W=4u L=1u
+M1 n1 inn tail 0 nch W=10u L=1u
+M2 n2 inp tail 0 nch W=10u L=1u
+M3 n1 n1 vdd vdd pch W=10u L=1u
+M4 n2 n1 vdd vdd pch W=10u L=1u
+M6 out n2 vdd vdd pch W=40u L=1u
+M7 out nb 0 0 nch W=8u L=1u
+Rz n2 nz 4k
+Cc nz out 2.5p
+CL out 0 5p
+* DC feedback, open loop for AC
+LFB out inn 1G
+CFB inn 0 1G
+.control
+op
+let iq_ua = -i(VDD)*1e6
+echo "RESULT iq_ua $&iq_ua"
+ac dec 50 1 1G
+let vg = db(v(out))
+let ph = 180/pi*cph(v(out))
+meas ac dc_gain_db find vg at=10
+meas ac ugbw_hz when vg=0
+meas ac ph_ugb find ph when vg=0
+let pm = 180 + ph_ugb
+echo "RESULT dc_gain_db $&dc_gain_db"
+echo "RESULT ugbw_hz $&ugbw_hz"
+echo "RESULT phase_margin_deg $&pm"
+quit
+.endc
+.end

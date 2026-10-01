@@ -1,0 +1,3 @@
+* Generic 180nm-class level-1 models, corner tt (illustrative, not a foundry PDK)
+.model nch nmos level=1 vto=0.45 kp=270u lambda=0.06 gamma=0.4 phi=0.8 tox=4n cgso=0.3n cgdo=0.3n cj=1m
+.model pch pmos level=1 vto=-0.45 kp=70u lambda=0.08 gamma=0.4 phi=0.8 tox=4n cgso=0.3n cgdo=0.3n cj=1m
