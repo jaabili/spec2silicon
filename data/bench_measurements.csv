@@ -1,0 +1,21 @@
+sample_id,measurement,value,unit,temp_c,vdd,operator
+PKG-01,"Phase margin (CL=5pF, scope)",55.16,deg,27,1.8,lab-MUC
+PKG-01,Supply current (DMM),69.77,uA,27,1.8,lab-MUC
+PKG-02,"Phase margin (CL=5pF, scope)",53.22,deg,27,1.8,lab-MUC
+PKG-02,Supply current (DMM),69.15,uA,27,1.8,lab-MUC
+PKG-03,"Phase margin (CL=5pF, scope)",55.98,deg,27,1.8,lab-MUC
+PKG-03,Supply current (DMM),71.28,uA,27,1.8,lab-MUC
+PKG-04,"Phase margin (CL=5pF, scope)",57.6,deg,27,1.8,lab-MUC
+PKG-04,Supply current (DMM),70.12,uA,27,1.8,lab-MUC
+PKG-05,"Phase margin (CL=5pF, scope)",55.71,deg,27,1.8,lab-MUC
+PKG-05,Supply current (DMM),69.22,uA,27,1.8,lab-MUC
+PKG-06,"Phase margin (CL=5pF, scope)",56.66,deg,27,1.8,lab-MUC
+PKG-06,Supply current (DMM),69.92,uA,27,1.8,lab-MUC
+PKG-07,"Phase margin (CL=5pF, scope)",56.98,deg,27,1.8,lab-MUC
+PKG-07,Supply current (DMM),72.32,uA,27,1.8,lab-MUC
+PKG-08,"Phase margin (CL=5pF, scope)",55.96,deg,27,1.8,lab-MUC
+PKG-08,Supply current (DMM),68.42,uA,27,1.8,lab-MUC
+PKG-09,"Phase margin (CL=5pF, scope)",54.63,deg,27,1.8,lab-MUC
+PKG-09,Supply current (DMM),68.47,uA,27,1.8,lab-MUC
+PKG-10,"Phase margin (CL=5pF, scope)",54.1,deg,27,1.8,lab-MUC
+PKG-10,Supply current (DMM),71.78,uA,27,1.8,lab-MUC
